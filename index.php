@@ -50,6 +50,16 @@ $goods = [
     'image' => 'img/lot-6.jpg',
     ],
 ]; 
+
+function format_num ($num) {
+  $num = ceil($num);
+  if ($num > 1000) {
+    $num = number_format($num, 0, '', ' ');
+  };
+
+  return $num  . ' ' . '₽';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -77,13 +87,13 @@ $goods = [
         <nav class="user-menu">
 
         <!-- здесь должен быть PHP код для показа меню и данных пользователя -->
-            <?php if ($is_auth == 1) : ?>
+            <?php if ($is_auth == 1): ?>
             <div class="user-menu__logged">
                 <p><?= $user_name; ?></p>
                 <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
                 <a class="user-menu__logout" href="#">Выход</a>
             </div>
-            <?php else : ?>
+            <?php else: ?>
             <ul class="user-menu__list">
                 <li class="user-menu__item">
                     <a href="#">Регистрация</a>
@@ -103,7 +113,7 @@ $goods = [
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">
             <!--заполните этот список из массива категорий-->
-            <?php foreach($categories as $key => $category) : ?>
+            <?php foreach($categories as $key => $category): ?>
             <li class="promo__item promo__item--<?= $key; ?>">
                 <a class="promo__link" href="pages/all-lots.html"><?= $category; ?></a>
             </li>
@@ -116,7 +126,7 @@ $goods = [
         </div>
         <ul class="lots__list">
             <!--заполните этот список из массива с товарами-->
-            <?php foreach($goods as $key => $good) : ?>
+            <?php foreach($goods as $key => $good): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?= $good['image']; ?>" width="350" height="260" alt="">
@@ -127,7 +137,7 @@ $goods = [
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?= $good['price']; ?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?= format_num($good['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
@@ -145,7 +155,7 @@ $goods = [
     <nav class="nav">
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
-            <?php foreach($categories as $category) : ?>
+            <?php foreach($categories as $category): ?>
             <li class="nav__item">
                 <a href="pages/all-lots.html"><?= $category; ?></a>
             </li>
